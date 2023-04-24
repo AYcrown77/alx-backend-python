@@ -43,19 +43,19 @@ class TestGithubOrgClient(unittest.TestCase):
             {'name': 'repo_2'}
         ]
 
-     get_json_mock()
-        with patch('client.GithubOrgClient._public_repos_url',
-                   new_callable=PropertyMock) as mock:
-            mock.return_value = [
-                {'name': 'repo_0'},
-                {'name': 'repo_1'},
-                {'name': 'repo_2'}
-            ]
-            goc = GithubOrgClient('xyz')
-            ret = goc._public_repos_url
-            self.assertEqual(ret, mock.return_value)
-            mock.assert_called_once()
-            get_json_mock.assert_called_once()
+    get_json_mock()
+    with patch('client.GithubOrgClient._public_repos_url',
+               new_callable=PropertyMock) as mock:
+        mock.return_value = [
+            {'name': 'repo_0'},
+            {'name': 'repo_1'},
+            {'name': 'repo_2'}
+        ]
+        goc = GithubOrgClient('xyz')
+        ret = goc._public_repos_url
+        self.assertEqual(ret, mock.return_value)
+        mock.assert_called_once()
+        get_json_mock.assert_called_once()
 
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),
